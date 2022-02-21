@@ -1,0 +1,78 @@
+* {
+  background-color: rgb(27, 27, 27);
+  color: white;
+  border-color: #222;
+}
+
+body > div.fade.modal.show {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+body > div.fade.modal.show > div {
+  background-color: rgb(226, 226, 226);
+  color: #222;
+}
+#formBasic {
+  background-color: #222;
+  color: rgb(226, 226, 226);
+}
+
+/* proressBar */
+#root > div > div > div.mt-5 > div.d-flex > div:nth-child(2) > div > div {
+  background-color: rgb(3, 105, 44);
+}
+#root > div > div > div.mt-5 > div.d-flex > div:nth-child(2) > div {
+  background-color: #333;
+}
+
+/* checkbox */
+#default-checkbox {
+  background-color: #999;
+  border-color: #777;
+}
+/* modal */
+
+.modal-content {
+  border: none !important;
+}
+
+/* text fields */
+#formBasic {
+  border: none;
+  border-radius: 20px;
+  margin-bottom: 40px;
+}
+
+/* submit button */
+
+body div.fade.modal.show button {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-radius: 10px;
+}
+
+.hiddenRow {
+  display: none;
+}
+
+#root > div > div > div:nth-child(1) > div > div {
+  border-color: #222;
+}
+
+/* filterBox */
+.filterBox {
+  padding: 1.2rem;
+  border-radius: 10px;
+}
+.filterBox,
+.filterBox > div,
+.filterBox > div > div {
+  background-color: #222;
+}
+.tableContainer tr {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.expandIcon {
+  cursor: pointer;
+}
