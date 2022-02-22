@@ -38,7 +38,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [recordLimit, setLimit] = useState(3)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [showToast, setShowToast] = useState(true)
+  const [showToast, setShowToast] = useState(false)
 
   const handleClose = () => setShowPopup(false)
   const handleShow = () => setShowPopup(true)
