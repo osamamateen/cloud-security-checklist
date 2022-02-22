@@ -1,4 +1,11 @@
-import { ProgressBar, Container, Button, Table, Spinner } from "react-bootstrap"
+import {
+  ProgressBar,
+  Container,
+  Button,
+  Table,
+  Spinner,
+  Toast,
+} from "react-bootstrap"
 import { useEffect, useState } from "react"
 import {
   getDocs,
@@ -19,6 +26,7 @@ import UserPopup from "./UserPopup"
 import Nav from "./Navbar"
 import ListItem from "./ListItem"
 import Filter from "./Filter"
+import ToastMessage from "./ToastMessage"
 function App() {
   const auth = getAuth()
 
@@ -30,6 +38,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [recordLimit, setLimit] = useState(3)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [showToast, setShowToast] = useState(true)
 
   const handleClose = () => setShowPopup(false)
   const handleShow = () => setShowPopup(true)
@@ -44,23 +53,24 @@ function App() {
     updateCount(updatedList)
   }
 
-  const createUser = async (user) => {
+  const createUser = (user) => {
     const usersCollectionRef = collection(db, "users")
-    await addDoc(usersCollectionRef, {
+    addDoc(usersCollectionRef, {
       name: user.name,
       email: user.email,
       organization: user.organization,
       phone: user.phone,
     })
-    try {
-      await sendSignInLinkToEmail(auth, user.email, {
-        url: "http://localhost:3000/?",
-        handleCodeInApp: true,
+
+    sendSignInLinkToEmail(auth, user.email, {
+      url: "http://localhost:3000/?",
+      handleCodeInApp: true,
+    })
+      .then(() => {
+        setShowToast(true)
+        window.localStorage.setItem("emailForSignIn", user.email)
       })
-      window.localStorage.setItem("emailForSignIn", user.email)
-    } catch (error) {
-      console.log(error)
-    }
+      .catch((e) => console.log(e))
   }
 
   const updateCount = (list) => {
@@ -74,11 +84,12 @@ function App() {
       if (!email) {
         setIsLoggedIn(false)
       } else {
-        try {
-          signInWithEmailLink(auth, email, window.location.href)
-        } catch (err) {}
-        setLimit(10)
-        setIsLoggedIn(true)
+        signInWithEmailLink(auth, email, window.location.href)
+          .then(() => {
+            setLimit(10)
+            setIsLoggedIn(true)
+          })
+          .catch((e) => console.log(e))
       }
     }
     let q = query(collection(db, "checklist"), limit(recordLimit))
@@ -109,6 +120,8 @@ function App() {
     <div className="dark">
       <Nav />
       <Container className="mt-5">
+        <ToastMessage showToast={showToast} setShowToast={setShowToast} />
+
         <Filter setFilterBy={setFilterBy} setFilter={setFilter} />
         <div className="mt-5">
           <div>
@@ -123,6 +136,7 @@ function App() {
             </div>
           </div>
         </div>
+
         <div className="tableContainer">
           <Table borderless>
             <tbody>

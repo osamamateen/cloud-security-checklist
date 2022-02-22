@@ -1,4 +1,4 @@
-import { Card, Button } from "react-bootstrap"
+import { Button } from "react-bootstrap"
 
 function Filter({ setFilterBy, setFilter }) {
   const handleChange = (filter, filterBy) => {
@@ -7,8 +7,6 @@ function Filter({ setFilterBy, setFilter }) {
   }
   return (
     <div className="filterBox">
-      {/* <Card>
-        <Card.Body> */}
       <div className="d-flex">
         <div className="m-1" style={{ width: "10%" }}>
           Cloud Providers:
@@ -87,8 +85,6 @@ function Filter({ setFilterBy, setFilter }) {
           </Button>
         </div>
       </div>
-      {/* </Card.Body>
-      </Card> */}
     </div>
   )
 }
